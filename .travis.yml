@@ -1,0 +1,16 @@
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+
+language: R
+sudo: false
+cache: packages
+
+env:
+  global:
+    - CI_NAME=travis-ci
+
+r_github_packages:
+  - kiwiroy/covr@coveralls-pro
+
+after_success:
+  - export CI_BRANCH=$TRAVIS_BRANCH
+  - Rscript -e 'covr::coveralls(quiet = FALSE)'
